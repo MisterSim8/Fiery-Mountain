@@ -1,0 +1,6 @@
+tilemap pour les plateformes et sprites pour la lave
+Mountain Platformer 2D Tileset Pixel Art
+https://free-game-assets.itch.io/mountain-platformer-2d-tileset-pixel-art
+
+sprite de personnage
+https://penzilla.itch.io/hooded-protagonist
