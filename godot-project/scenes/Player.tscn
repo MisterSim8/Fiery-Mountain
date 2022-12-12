@@ -211,7 +211,7 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )
 animation = "default-walk-left"
-frame = 3
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -223,3 +223,5 @@ shape = SubResource( 40 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
