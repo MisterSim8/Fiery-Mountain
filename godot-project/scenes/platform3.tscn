@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/tilesets/ground.tres" type="TileSet" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 18.0
+height = 132.0
+
+[node name="platform3" type="StaticBody2D"]
+
+[node name="ground" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 1, 0, 2, 9, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2( 96, 32 )
+rotation = -1.5708
+shape = SubResource( 1 )

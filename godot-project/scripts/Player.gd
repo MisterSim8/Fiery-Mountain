@@ -2,12 +2,12 @@ extends KinematicBody2D
 
 var velocity : Vector2
 
-export var vitesse_max : int = 1000
+export var vitesse_max : int = 600
 export var gravity : float = 55
 export var vitesse_tombee_max: int = 2000 # vitesse maximale à laquelle le joueur peut tomber lorsqu'il est soumis à la gravité
 export var vitesse_lerp: float = 0.2 # la constante de décélération de l'interpolation linéaire
-export var force_saut : int = 1600
-export var acceleration : int = 50
+export var force_saut : int = 1000
+export var acceleration : int = 35
 export var jump_buffer_time : int  = 15 # le temps que le joueur a pour pouvoir sauter sans être complétement atteri au sol. S'il pèse dans ce délai sur la touche de saut, il sautera immédiatement à nouveau une fois rendu au sol.
 export var coyote_time : int = 15 # le temps que le joueur a quand il tombe d'une plateforme pour pouvoir peser sur la touche espace et pouvoir sauter. 
 
