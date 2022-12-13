@@ -206,13 +206,12 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=40]
 height = 10.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="player" type="KinematicBody2D"]
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )
 animation = "default-walk-left"
-frame = 5
 playing = true
 __meta__ = {
 "_edit_lock_": true
