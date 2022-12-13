@@ -117,20 +117,20 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="platform1" parent="." instance=ExtResource( 4 )]
+[node name="platform1" parent="." instance=ExtResource( 7 )]
+position = Vector2( 92, 364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="platform2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 275, 309 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="platform2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 164, 213 )
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="platform3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 92, 364 )
+position = Vector2( 164, 213 )
 __meta__ = {
 "_edit_lock_": true
 }

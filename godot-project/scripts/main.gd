@@ -44,7 +44,44 @@ func _ready():
 
 func _process(delta):
 	majUI()
+	if Input.is_action_just_pressed("test"):
+		addPlatform(1)
 
+
+func addPlatform(platformAmount):
+	for i in range(platformAmount):
+		#on agrandit la texture de background vers le haut
+		$textureLoop.rect_size.y+= platformYGap *3
+		$textureLoop.rect_position.y-=platformYGap*3
+
+		#on trouve la derniere plateforme placée
+		var lastPlatform = null
+		for j in range(get_child_count()):
+			if get_child(j).is_in_group("platform") == true:
+				lastPlatform = get_child(j)
+
+		#on détermine la position et le type de la nouvelle plateforme
+		randomize()
+		var nouveauPlatformNum = randi() % 4 + 1
+		var nouveauPlatformInstance = null
+		var nouveauX = randi() % platformXMaxOffset + platformXMinOffset
+		if randi() % 2 + 1 == 1:
+			nouveauX = -nouveauX
+		var nouveauY = lastPlatform.position.y - platformYGap
+
+		if nouveauPlatformNum == 1:
+			nouveauPlatformInstance = scenePlatformUn.instance()
+		elif nouveauPlatformNum == 2:
+			nouveauPlatformInstance = scenePlatformDeux.instance()
+		elif nouveauPlatformNum == 3:
+			nouveauPlatformInstance = scenePlatformTrois.instance()
+		else:
+			nouveauPlatformInstance = scenePlatformUn.instance()
+
+		#on place la plateforme
+		nouveauPlatformInstance.position.x = nouveauX
+		nouveauPlatformInstance.position.y = nouveauY
+		add_child(nouveauPlatformInstance)
 
 func raiseWater(raiseHeight):
 	for i in range(bodyEau.get_child_count()):
@@ -108,7 +145,7 @@ func resetPlayer():
 func _on_star_body_entered(body):
 	print("scored!")
 	scoreJoueur = scoreJoueur + 1
-	resetPlayer()
+	#resetPlayer()
 ##FIN CALLBACKS
 
 
