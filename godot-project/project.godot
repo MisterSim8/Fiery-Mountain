@@ -35,6 +35,12 @@ right={
  ]
 }
 
+[layer_names]
+
+2d_render/layer_1="ground"
+2d_render/layer_2="water"
+2d_render/layer_3="player"
+
 [physics]
 
 common/enable_pause_aware_picking=true

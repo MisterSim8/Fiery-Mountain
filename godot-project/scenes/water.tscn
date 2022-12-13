@@ -47,17 +47,17 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="water" type="Node2D"]
+[node name="water" type="Node2D" groups=["eau"]]
 position = Vector2( 0, 1 )
 
 [node name="bottom" type="AnimatedSprite" parent="."]
 position = Vector2( 33, 86 )
 frames = SubResource( 1 )
-frame = 7
+frame = 11
 playing = true
 
 [node name="top" type="AnimatedSprite" parent="."]
 position = Vector2( 33, 22 )
 frames = SubResource( 2 )
-frame = 12
+frame = 10
 playing = true

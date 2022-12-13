@@ -1,37 +1,60 @@
 extends Node2D
 
-
+#SCENES
 onready var sceneEau = preload("res://scenes/water.tscn")
+#FIN SCENES
+
+# VAR EAU
+#récupère le staticBody qui contient l'eau
+var bodyEau = null
+#récupère la distance que l'eau doit couvrir
+var groundSize = null
+#récupère la profondeur que l'eau doit couvrir
+var depth = null
+#récupère le nombre de sprites d'eau requis en x
+var spriteSizeEauX = null
+var numSpriteRequisX = null
+#récupère là ou l'eau doit commencer à se dessiner sur l'axe des x
+var yOffset = 0
+var debutEauX = 0
+#FIN VAR EAU
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initWater() # Replace with function body.
 
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		raiseWater(30)
 
-func raiseWater():
-	pass
+
+func raiseWater(raiseHeight):
+	for i in range(bodyEau.get_child_count()):
+		if bodyEau.get_child(i).is_in_group("eau") == true:
+			bodyEau.get_child(i).position.y -= raiseHeight
+
+	$".".get_node("water/baseTexture").rect_size.x +=raiseHeight
+	$".".get_node("water/baseTexture").rect_position.y -= raiseHeight
+
+	$".".get_node("water/collider").position.y -= raiseHeight
+	
+	
+	
 
 func initWater():
-	
-	#récupère le staticBody qui contient l'eau
-	var bodyEau = $".".get_node("water")
-	
-	#récupère la distance que l'eau doit couvrir
-	var groundSize = ($".".get_node("background/groundArea/area").get_shape().extents.x) * 21
-	
-	#récupère la profondeur que l'eau doit couvrir
-	var depth = ($".".get_node("background/groundArea/area").get_shape().extents.y) * 4
-	
-	#récupère le nombre de sprites d'eau requis en x
+	#on assigne les valeurs aux variables de l'eau
+	bodyEau = $".".get_node("water")
+	groundSize = ($".".get_node("background/groundArea/area").get_shape().extents.x) * 6
+	depth = ($".".get_node("background/groundArea/area").get_shape().extents.y) * 4
+
 	var instanceSizeEauX = sceneEau.instance()
-	var spriteSizeEauX = instanceSizeEauX.get_node("top").get_sprite_frames().get_frame("default",0).get_size().x
-	var numSpriteRequisX = ceil(groundSize/spriteSizeEauX)
-	
-	
-	#récupère là ou l'eau doit commencer à se dessiner sur l'axe des x
-	var yOffset = 20
-	var debutEauX = - floor(groundSize/3)
+	spriteSizeEauX = instanceSizeEauX.get_node("top").get_sprite_frames().get_frame("default",0).get_size().x
+	numSpriteRequisX = ceil(groundSize/spriteSizeEauX)
+
+	debutEauX = - floor(groundSize/3)
+	yOffset = 20
+
 	
 	#place les sprites d'eau en surface
 	for i in range(numSpriteRequisX):
@@ -45,6 +68,9 @@ func initWater():
 	$".".get_node("water/baseTexture").rect_position.y = yOffset+5
 	$".".get_node("water/baseTexture").rect_size.x = groundSize
 	$".".get_node("water/baseTexture").rect_size.y = depth
+	
+	#ajuste le collider de l'eau
+	$".".get_node("water/collider").position.y+=yOffset
 	
 		
 		
