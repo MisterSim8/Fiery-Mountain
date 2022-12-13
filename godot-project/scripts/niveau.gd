@@ -25,8 +25,7 @@ func _ready():
 	initWater() # Replace with function body.
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		raiseWater(30)
+	pass
 
 
 func raiseWater(raiseHeight):
@@ -38,9 +37,6 @@ func raiseWater(raiseHeight):
 	$".".get_node("water/baseTexture").rect_position.y -= raiseHeight
 
 	$".".get_node("water/collider").position.y -= raiseHeight
-	
-	
-	
 
 func initWater():
 	#on assigne les valeurs aux variables de l'eau
@@ -71,7 +67,20 @@ func initWater():
 	
 	#ajuste le collider de l'eau
 	$".".get_node("water/collider").position.y+=yOffset
+
+func resetWater():
+
+	for i in range(bodyEau.get_child_count()):
+		if bodyEau.get_child(i).is_in_group("eau") == true:
+			bodyEau.get_child(i).position.y = yOffset
 	
+	$".".get_node("water/baseTexture").rect_position.x = debutEauX
+	$".".get_node("water/baseTexture").rect_position.y = yOffset+5
+	$".".get_node("water/baseTexture").rect_size.x = groundSize
+	$".".get_node("water/baseTexture").rect_size.y = depth
+	
+	#ré-ajustement collision de l'eau
+	$".".get_node("water/collider").position.y = $".".get_node("water/collider").get_shape().extents.y+yOffset
 		
 		
 
