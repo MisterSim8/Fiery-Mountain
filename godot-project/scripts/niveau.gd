@@ -33,7 +33,7 @@ func _ready():
 	initWater() # Replace with function body.
 
 func _process(delta):
-	pass
+	majUI()
 
 
 func raiseWater(raiseHeight):
@@ -92,3 +92,8 @@ func resetWater():
 
 func _on_star_body_entered(body):
 	print("scored!")
+	scoreJoueur = scoreJoueur + 1
+
+
+func majUI():
+	get_node("Player/GUI/HBoxScore/scoreData").text = str(scoreJoueur)
