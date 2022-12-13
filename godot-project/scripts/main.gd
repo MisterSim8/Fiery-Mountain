@@ -10,6 +10,10 @@ onready var scenePlatformDeux = preload("res://scenes/platform2.tscn")
 onready var scenePlatformTrois = preload("res://scenes/platform3.tscn")
 #FIN SCENES
 
+#CONNECT
+$niveau.connect("")
+#FIN CONNECT
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

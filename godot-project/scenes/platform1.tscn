@@ -11,6 +11,7 @@ radius = 12.0
 height = 30.0
 
 [node name="platform1" type="StaticBody2D"]
+z_index = 1
 collision_mask = 4
 
 [node name="ground" type="TileMap" parent="."]

@@ -1,7 +1,16 @@
-extends Node2D
+extends Node
 
 #SCENES
 onready var sceneEau = preload("res://scenes/water.tscn")
+onready var scenePlatformUn = preload("res://scenes/platform1.tscn")
+onready var scenePlatformDeux = preload("res://scenes/platform2.tscn")
+onready var scenePlatformTrois = preload("res://scenes/platform3.tscn")
+
+const platformYGap = 50 # la constante de distance en y entre les plateformes
+const platformXMinOffset = 30 # la constante de distance minimale en x entre chaque paire de plateformes
+const platformXMaxOffset = 50 # la constante de distance minimale en x entre chaque paire de plateformes
+
+var scoreJoueur = 0
 #FIN SCENES
 
 # VAR EAU
@@ -18,7 +27,6 @@ var numSpriteRequisX = null
 var yOffset = 0
 var debutEauX = 0
 #FIN VAR EAU
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,7 +49,7 @@ func raiseWater(raiseHeight):
 func initWater():
 	#on assigne les valeurs aux variables de l'eau
 	bodyEau = $".".get_node("water")
-	groundSize = ($".".get_node("background/groundArea/area").get_shape().extents.x) * 6
+	groundSize = ($".".get_node("background/groundArea/area").get_shape().extents.x) * 9
 	depth = ($".".get_node("background/groundArea/area").get_shape().extents.y) * 4
 
 	var instanceSizeEauX = sceneEau.instance()
@@ -81,6 +89,6 @@ func resetWater():
 	
 	#ré-ajustement collision de l'eau
 	$".".get_node("water/collider").position.y = $".".get_node("water/collider").get_shape().extents.y+yOffset
-		
-		
 
+func _on_star_body_entered(body):
+	print("scored!")
