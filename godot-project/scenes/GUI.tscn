@@ -1,7 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/themes/FlatUI/kenneyUI.tres" type="Theme" id=1]
 [ext_resource path="res://assets/themes/fonts/wellbutrin/Welbut__.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart2.png" type="Texture" id=3]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart5.png" type="Texture" id=4]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart1.png" type="Texture" id=5]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart3.png" type="Texture" id=6]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart4.png" type="Texture" id=7]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart8.png" type="Texture" id=8]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart6.png" type="Texture" id=9]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart10.png" type="Texture" id=10]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart7.png" type="Texture" id=11]
+[ext_resource path="res://assets/Mountain-platformer-pixel-art-tileset/PNG/items/Heart/heart9.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -11,27 +21,58 @@ font_data = ExtResource( 2 )
 size = 24
 font_data = ExtResource( 2 )
 
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="GUI" type="CanvasLayer"]
+
+[node name="VBoxMenu" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
 
 [node name="HBoxScore" type="HBoxContainer" parent="."]
 margin_left = 28.0
-margin_top = 510.0
+margin_top = 488.0
 margin_right = 158.0
 margin_bottom = 598.0
 theme = ExtResource( 1 )
 custom_constants/separation = 6
 
 [node name="scoreTitre" type="Label" parent="HBoxScore"]
-margin_top = 27.0
+margin_top = 38.0
 margin_right = 79.0
-margin_bottom = 61.0
+margin_bottom = 72.0
 custom_fonts/font = SubResource( 1 )
 text = "Score:"
 
 [node name="scoreData" type="Label" parent="HBoxScore"]
 margin_left = 85.0
-margin_top = 27.0
+margin_top = 38.0
 margin_right = 105.0
-margin_bottom = 61.0
+margin_bottom = 72.0
 custom_fonts/font = SubResource( 2 )
 text = "0"
+
+[node name="heart" type="AnimatedSprite" parent="."]
+position = Vector2( 46, 580 )
+frames = SubResource( 3 )
+frame = 7
+playing = true
+
+[node name="heart2" type="AnimatedSprite" parent="."]
+position = Vector2( 86, 580 )
+frames = SubResource( 3 )
+frame = 5
+playing = true
+
+[node name="heart3" type="AnimatedSprite" parent="."]
+position = Vector2( 126, 580 )
+scale = Vector2( 1.0625, 1 )
+frames = SubResource( 3 )
+frame = 6
+playing = true

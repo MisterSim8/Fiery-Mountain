@@ -17,6 +17,7 @@ onready var colliderRight = get_node("background/colliderright")
 
 #VAR JOUEUR
 var scoreJoueur = 0
+var pvJoueur = 3
 var positionInitialeJoueurX = 323
 var positionInitialeJoueurY = 508
 #FIN VAR JOUEUR
@@ -50,6 +51,9 @@ func _ready():
 
 func _process(delta):
 	majUI()
+	#on évalue la condition de mort
+	if pvJoueur <=0:
+		die()
 	if Input.is_action_just_pressed("test"):
 		addPlatform(1)
 	
@@ -57,7 +61,6 @@ func _physics_process(delta):
 	#gestion eau
 	tempsEau += delta
 	if tempsEau >= interValEau:
-		print("raise")
 		raiseWater(raiseEau)
 		tempsEau = 0
 
@@ -190,8 +193,23 @@ func die():
 func _on_star_body_entered(body):
 	scoreJoueur = scoreJoueur + 1
 	#resetPlayer()
+func _on_water_body_entered(body):
+	if body.name == "player":
+		pvJoueur = pvJoueur - 1
+		resetWater()
+		resetPlayer()
 ##FIN CALLBACKS
 
 
 func majUI():
 	get_node("player/GUI/HBoxScore/scoreData").text = str(scoreJoueur)
+
+	if pvJoueur == 2:
+		$player/GUI/heart3.visible = false
+	if pvJoueur == 1:
+		$player/GUI/heart2.visible = false
+	if pvJoueur == 0:
+		$player/GUI/heart.visible = false
+
+
+

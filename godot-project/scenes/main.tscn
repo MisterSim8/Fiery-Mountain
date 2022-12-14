@@ -131,7 +131,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="water" type="StaticBody2D" parent="."]
+[node name="water" type="Area2D" parent="."]
 position = Vector2( 16, 527 )
 z_index = 2
 collision_layer = 2
@@ -150,4 +150,5 @@ color = Color( 0.180392, 0.32549, 0.501961, 1 )
 position = Vector2( 262, 208 )
 z_index = 2
 
+[connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
 [connection signal="body_entered" from="star" to="." method="_on_star_body_entered"]
