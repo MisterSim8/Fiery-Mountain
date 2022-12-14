@@ -9,8 +9,8 @@ onready var scenePlatformTrois = preload("res://scenes/platform3.tscn")
 
 #VAR PLATEFORMES
 const platformYGap = 135 # la constante de distance en y entre les plateformes
-const platformXMinOffset = 60 # la constante de distance minimale en x entre chaque paire de plateformes
-const platformXMaxOffset = 80 # la constante de distance minimale en x entre chaque paire de plateformes
+const platformXMinOffset = 80 # la constante de distance minimale en x entre chaque paire de plateformes
+const platformXMaxOffset = 85 # la constante de distance minimale en x entre chaque paire de plateformes
 onready var colliderLeft = get_node("background/colliderleft")
 onready var colliderRight = get_node("background/colliderright")
 #FIN VAR PLATEFORMES
@@ -65,7 +65,7 @@ func addPlatform(platformAmount):
 		for j in range(get_child_count()):
 			if get_child(j).is_in_group("platform") == true:
 				lastPlatform = get_child(j)
-		print(lastPlatform)
+
 		lastPlatformX = lastPlatform.position.x
 		lastPlatformWidth = lastPlatform.get_node("zone/area").get_shape().extents.x
 
@@ -86,23 +86,27 @@ func addPlatform(platformAmount):
 		#on détermine le type de la nouvelle plateforme
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
-		var nouveauX = rng.randi_range(platformXMinOffset,platformXMaxOffset)
+		var nouveauPlatformWidth = nouveauPlatformInstance.get_node("zone/area").get_shape().extents.x
+		var distanceX = rng.randi_range(platformXMinOffset,platformXMaxOffset) + lastPlatformWidth
+		print("width: "+str(nouveauPlatformWidth))
+		print("distance X initiale: "+str(distanceX))
+
 
 		if rng.randi_range(1,2) == 1:
-			nouveauX = -nouveauX
+			distanceX = -distanceX
 
-		if (lastPlatformX + nouveauX) < (colliderLeft.position.x + colliderLeft.get_shape().extents.x):
-			nouveauX = -nouveauX
+		if (lastPlatformX + distanceX) < (colliderLeft.position.x + colliderLeft.get_shape().extents.x):
+			distanceX = -distanceX
 			print("left true")
-		if (lastPlatformX + lastPlatformWidth + nouveauX) > colliderRight.position.x:
+		if (lastPlatformX + lastPlatformWidth + distanceX + nouveauPlatformWidth) > colliderRight.position.x:
 			print("right true")
-			nouveauX = -nouveauX
+			distanceX = -distanceX
 
-		nouveauX = lastPlatform.position.x + lastPlatformWidth +nouveauX
+		distanceX = lastPlatform.position.x + lastPlatformWidth +distanceX
 		var nouveauY = lastPlatform.position.y - platformYGap
 
 #		#on place la plateforme
-		nouveauPlatformInstance.position.x = nouveauX
+		nouveauPlatformInstance.position.x = distanceX
 		nouveauPlatformInstance.position.y = nouveauY
 		add_child(nouveauPlatformInstance)
 
