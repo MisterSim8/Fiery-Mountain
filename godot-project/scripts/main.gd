@@ -36,6 +36,13 @@ var yOffset = 0
 var debutEauX = 0
 #FIN VAR EAU
 
+#VAR JEU
+var tempsEau = 0.0
+var interValEau = 1
+var raiseEau = 10
+#FIN VAR JEU
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,6 +52,14 @@ func _process(delta):
 	majUI()
 	if Input.is_action_just_pressed("test"):
 		addPlatform(1)
+	
+func _physics_process(delta):
+	#gestion eau
+	tempsEau += delta
+	if tempsEau >= interValEau:
+		print("raise")
+		raiseWater(raiseEau)
+		tempsEau = 0
 
 
 func addPlatform(platformAmount):
@@ -167,6 +182,9 @@ func resetWater():
 func resetPlayer():
 	$player.position.x = positionInitialeJoueurX
 	$player.position.y = positionInitialeJoueurY
+
+func die():
+	get_tree().change_scene("res://scenes/menu.tscn")#retour au menu
 
 #CALLBACKS
 func _on_star_body_entered(body):
