@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/tilesets/ground.tres" type="TileSet" id=1]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.0
 height = 66.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 50.5, 12.5 )
 
 [node name="platform2" type="StaticBody2D" groups=["platform"]]
 z_index = 1
@@ -14,8 +17,26 @@ collision_mask = 4
 tile_set = ExtResource( 1 )
 format = 1
 tile_data = PoolIntArray( 1, 0, 0, 2, 9, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="collider" type="CollisionShape2D" parent="."]
 position = Vector2( 128, 32 )
 rotation = -1.5708
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="zone" type="Area2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="area" type="CollisionShape2D" parent="zone"]
+position = Vector2( 128, 22 )
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}

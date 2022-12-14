@@ -8,9 +8,11 @@ onready var scenePlatformTrois = preload("res://scenes/platform3.tscn")
 #FIN SCENES
 
 #VAR PLATEFORMES
-const platformYGap = 50 # la constante de distance en y entre les plateformes
-const platformXMinOffset = 30 # la constante de distance minimale en x entre chaque paire de plateformes
-const platformXMaxOffset = 50 # la constante de distance minimale en x entre chaque paire de plateformes
+const platformYGap = 135 # la constante de distance en y entre les plateformes
+const platformXMinOffset = 60 # la constante de distance minimale en x entre chaque paire de plateformes
+const platformXMaxOffset = 80 # la constante de distance minimale en x entre chaque paire de plateformes
+onready var colliderLeft = get_node("background/colliderleft")
+onready var colliderRight = get_node("background/colliderright")
 #FIN VAR PLATEFORMES
 
 #VAR JOUEUR
@@ -34,9 +36,6 @@ var yOffset = 0
 var debutEauX = 0
 #FIN VAR EAU
 
-#VAR JOUEUR
-
-#FIN JOUEUR
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,21 +52,27 @@ func addPlatform(platformAmount):
 		#on agrandit la texture de background vers le haut
 		$textureLoop.rect_size.y+= platformYGap *3
 		$textureLoop.rect_position.y-=platformYGap*3
+		
+		# on agrandit les barrières invisibles à gauche et à droite
+		colliderLeft.get_shape().extents.y +=platformYGap * 3
+		colliderRight.get_shape().extents.y += platformYGap * 3
 
 		#on trouve la derniere plateforme placée
 		var lastPlatform = null
+		var lastPlatformX = 0
+		var lastPlatformWidth = 0
+
 		for j in range(get_child_count()):
 			if get_child(j).is_in_group("platform") == true:
 				lastPlatform = get_child(j)
+		print(lastPlatform)
+		lastPlatformX = lastPlatform.position.x
+		lastPlatformWidth = lastPlatform.get_node("zone/area").get_shape().extents.x
 
-		#on détermine la position et le type de la nouvelle plateforme
+		#on détermine le type de la nouvelle plateforme
 		randomize()
 		var nouveauPlatformNum = randi() % 4 + 1
 		var nouveauPlatformInstance = null
-		var nouveauX = randi() % platformXMaxOffset + platformXMinOffset
-		if randi() % 2 + 1 == 1:
-			nouveauX = -nouveauX
-		var nouveauY = lastPlatform.position.y - platformYGap
 
 		if nouveauPlatformNum == 1:
 			nouveauPlatformInstance = scenePlatformUn.instance()
@@ -78,7 +83,25 @@ func addPlatform(platformAmount):
 		else:
 			nouveauPlatformInstance = scenePlatformUn.instance()
 
-		#on place la plateforme
+		#on détermine le type de la nouvelle plateforme
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		var nouveauX = rng.randi_range(platformXMinOffset,platformXMaxOffset)
+
+		if rng.randi_range(1,2) == 1:
+			nouveauX = -nouveauX
+
+		if (lastPlatformX + nouveauX) < (colliderLeft.position.x + colliderLeft.get_shape().extents.x):
+			nouveauX = -nouveauX
+			print("left true")
+		if (lastPlatformX + lastPlatformWidth + nouveauX) > colliderRight.position.x:
+			print("right true")
+			nouveauX = -nouveauX
+
+		nouveauX = lastPlatform.position.x + lastPlatformWidth +nouveauX
+		var nouveauY = lastPlatform.position.y - platformYGap
+
+#		#on place la plateforme
 		nouveauPlatformInstance.position.x = nouveauX
 		nouveauPlatformInstance.position.y = nouveauY
 		add_child(nouveauPlatformInstance)
@@ -143,7 +166,6 @@ func resetPlayer():
 
 #CALLBACKS
 func _on_star_body_entered(body):
-	print("scored!")
 	scoreJoueur = scoreJoueur + 1
 	#resetPlayer()
 ##FIN CALLBACKS
