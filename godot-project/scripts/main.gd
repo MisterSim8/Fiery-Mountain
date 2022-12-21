@@ -213,7 +213,7 @@ func die():
 
 #CALLBACKS
 func _on_star_body_entered(body):
-	scoreJoueur = scoreJoueur + $star.score
+	resetWater()
 	resetPlayer()
 	addPlatform(2)
 
@@ -224,7 +224,6 @@ func _on_water_body_entered(body):
 		resetPlayer()
 ##FIN CALLBACKS
 
-
 func majUI():
 	get_node("player/GUI/HBoxScore/scoreData").text = str(scoreJoueur)
 
@@ -234,6 +233,4 @@ func majUI():
 		$player/GUI/heart2.visible = false
 	if pvJoueur == 0:
 		$player/GUI/heart.visible = false
-
-
 

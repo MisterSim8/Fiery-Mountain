@@ -147,7 +147,7 @@ margin_bottom = 40.0
 color = Color( 0.180392, 0.32549, 0.501961, 1 )
 
 [node name="star" parent="." instance=ExtResource( 6 )]
-position = Vector2( 262, 208 )
+position = Vector2( 180, 46 )
 z_index = 2
 
 [node name="platform4" parent="." instance=ExtResource( 4 )]
@@ -156,5 +156,8 @@ position = Vector2( 309, 140 )
 [node name="platform5" parent="." instance=ExtResource( 7 )]
 position = Vector2( 84, 52 )
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
 [connection signal="body_entered" from="star" to="." method="_on_star_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
