@@ -61,7 +61,7 @@ func _physics_process(delta):
 	#gestion eau
 	tempsEau += delta
 	if tempsEau >= interValEau:
-		raiseWater(raiseEau)
+		#raiseWater(raiseEau)
 		tempsEau = 0
 
 
@@ -91,6 +91,7 @@ func addPlatform(platformAmount):
 		randomize()
 		var nouveauPlatformNum = randi() % 4 + 1
 		var nouveauPlatformInstance = null
+		var nouveauPlatformWidth = null
 
 		if nouveauPlatformNum == 1:
 			nouveauPlatformInstance = scenePlatformUn.instance()
@@ -100,18 +101,33 @@ func addPlatform(platformAmount):
 			nouveauPlatformInstance = scenePlatformTrois.instance()
 		else:
 			nouveauPlatformInstance = scenePlatformUn.instance()
+	
+		#on détermine la dimension de la nouvelle plateforme
+		nouveauPlatformWidth = nouveauPlatformInstance.get_node("zone/area").get_shape().extents.x
 
-		#on détermine le type de la nouvelle plateforme
+		#on détermine la direction de la nouvelle plateforme par rapport à la dernière
+		var estGauche = true # True si la nouvlle plateforme est à gauche de la dernière
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
-		var nouveauPlatformWidth = nouveauPlatformInstance.get_node("zone/area").get_shape().extents.x
-		var distanceX = rng.randi_range(platformXMinOffset,platformXMaxOffset) + lastPlatformWidth
+		if rng.randi_range(1,2) == 1:
+			estGauche = true
+		
+		#on détermine la distance en X de la nouvelle plateforme plar rapport à la dernière
+		var distanceX = null
+		if estGauche == true:
+			distanceX = rng.randi_range(platformXMinOffset,platformXMaxOffset)*-1
+			#if lastPlatformX
+		else:
+			distanceX = rng.randi_range(platformXMinOffset,platformXMaxOffset)
+			
+
+
+
 		print("width: "+str(nouveauPlatformWidth))
 		print("distance X initiale: "+str(distanceX))
 
 
-		if rng.randi_range(1,2) == 1:
-			distanceX = -distanceX
+
 
 		if (lastPlatformX + distanceX) < (colliderLeft.position.x + colliderLeft.get_shape().extents.x):
 			distanceX = -distanceX

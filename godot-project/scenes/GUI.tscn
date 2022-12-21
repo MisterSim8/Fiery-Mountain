@@ -31,15 +31,10 @@ animations = [ {
 
 [node name="GUI" type="CanvasLayer"]
 
-[node name="VBoxMenu" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
 [node name="HBoxScore" type="HBoxContainer" parent="."]
 margin_left = 28.0
-margin_top = 488.0
 margin_right = 158.0
-margin_bottom = 598.0
+margin_bottom = 110.0
 theme = ExtResource( 1 )
 custom_constants/separation = 6
 
@@ -59,20 +54,19 @@ custom_fonts/font = SubResource( 2 )
 text = "0"
 
 [node name="heart" type="AnimatedSprite" parent="."]
-position = Vector2( 46, 580 )
+position = Vector2( 46, 92 )
 frames = SubResource( 3 )
-frame = 7
 playing = true
 
 [node name="heart2" type="AnimatedSprite" parent="."]
-position = Vector2( 86, 580 )
+position = Vector2( 86, 92 )
 frames = SubResource( 3 )
-frame = 5
+frame = 8
 playing = true
 
 [node name="heart3" type="AnimatedSprite" parent="."]
-position = Vector2( 126, 580 )
+position = Vector2( 126, 92 )
 scale = Vector2( 1.0625, 1 )
 frames = SubResource( 3 )
-frame = 6
+frame = 9
 playing = true

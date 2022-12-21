@@ -10,13 +10,13 @@
 [ext_resource path="res://assets/tilesets/ground.tres" type="TileSet" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14.75, 288.875 )
+extents = Vector2( 14.75, 395.875 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 335.25, 24.625 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 13.75, 286 )
+extents = Vector2( 13.75, 399.5 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 305.75, 215.5 )
@@ -49,7 +49,7 @@ __meta__ = {
 }
 
 [node name="colliderleft" type="CollisionShape2D" parent="background"]
-position = Vector2( -1.25, 287.875 )
+position = Vector2( -1.25, 180.875 )
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -63,7 +63,7 @@ __meta__ = {
 }
 
 [node name="colliderright" type="CollisionShape2D" parent="background"]
-position = Vector2( 640, 289 )
+position = Vector2( 640, 175.5 )
 shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
@@ -149,6 +149,12 @@ color = Color( 0.180392, 0.32549, 0.501961, 1 )
 [node name="star" parent="." instance=ExtResource( 6 )]
 position = Vector2( 262, 208 )
 z_index = 2
+
+[node name="platform4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 309, 140 )
+
+[node name="platform5" parent="." instance=ExtResource( 7 )]
+position = Vector2( 84, 52 )
 
 [connection signal="body_entered" from="water" to="." method="_on_water_body_entered"]
 [connection signal="body_entered" from="star" to="." method="_on_star_body_entered"]
