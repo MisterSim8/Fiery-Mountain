@@ -40,7 +40,7 @@ var debutEauX = 0
 #VAR JEU
 var tempsEau = 0.0 # le temps écoulé depuis la dernière élévation de l'eau
 var interValEau = 1 # le délai entre chaque élévation de l'eau
-const raiseEau = 10 # le niveau d'eau qui doit être ajouté à toutes les fois que le timer se termine.
+const raiseEau = 30 # le niveau d'eau qui doit être ajouté à toutes les fois que le timer se termine.
 var joueurPret = false # true si le joueur est prêt et que l'eau peut commencer à monter.
 #FIN VAR JEU
 
