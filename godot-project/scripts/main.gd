@@ -45,7 +45,6 @@ var raiseEau = 10
 
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	initWater()
 
@@ -106,42 +105,35 @@ func addPlatform(platformAmount):
 		nouveauPlatformWidth = nouveauPlatformInstance.get_node("zone/area").get_shape().extents.x
 
 		#on détermine la direction de la nouvelle plateforme par rapport à la dernière
-		var estGauche = true # True si la nouvlle plateforme est à gauche de la dernière
-		var rng = RandomNumberGenerator.new()
-		rng.randomize()
-		if rng.randi_range(1,2) == 1:
+		var estGauche = false # True si la nouvlle plateforme est à gauche de la dernière
+
+		if randi() % 3 + 1 == 1:
 			estGauche = true
+			print("est gauche")
 		
 		#on détermine la distance en X de la nouvelle plateforme plar rapport à la dernière
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
 		var distanceX = null
+		distanceX = rng.randi_range(platformXMinOffset,platformXMaxOffset)
 		if estGauche == true:
-			distanceX = rng.randi_range(platformXMinOffset,platformXMaxOffset)*-1
-			#if lastPlatformX
-		else:
-			distanceX = rng.randi_range(platformXMinOffset,platformXMaxOffset)
-			
+			distanceX = -distanceX
+			if abs(distanceX) <= nouveauPlatformWidth:
+				distanceX = distanceX-(lastPlatformWidth*0.5) # on s'assure que, depuis la dernière plateforme, on puisse toujours monter sur la nouvelle.
 
-
-
-		print("width: "+str(nouveauPlatformWidth))
-		print("distance X initiale: "+str(distanceX))
-
-
-
-
+		#on vérifie que sa position ne dépasse pas le bodures de gauche et de droite
 		if (lastPlatformX + distanceX) < (colliderLeft.position.x + colliderLeft.get_shape().extents.x):
 			distanceX = -distanceX
 			print("left true")
-		if (lastPlatformX + lastPlatformWidth + distanceX + nouveauPlatformWidth) > colliderRight.position.x:
+		if (lastPlatformX + distanceX + nouveauPlatformWidth) > colliderRight.position.x:
 			print("right true")
 			distanceX = -distanceX
 
-		distanceX = lastPlatform.position.x + lastPlatformWidth +distanceX
-		var nouveauY = lastPlatform.position.y - platformYGap
+		print("Distance X finale: "+str(distanceX))
 
-#		#on place la plateforme
-		nouveauPlatformInstance.position.x = distanceX
-		nouveauPlatformInstance.position.y = nouveauY
+		#on place la plateforme
+		nouveauPlatformInstance.position.x = lastPlatform.position.x + distanceX
+		nouveauPlatformInstance.position.y = lastPlatform.position.y - platformYGap
 		add_child(nouveauPlatformInstance)
 
 func raiseWater(raiseHeight):
