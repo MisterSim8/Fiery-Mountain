@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/tilesets/ground.tres" type="TileSet" id=1]
+[ext_resource path="res://scripts/platform2.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.0
@@ -12,6 +13,7 @@ extents = Vector2( 50.5, 12.5 )
 [node name="platform2" type="StaticBody2D" groups=["platform"]]
 z_index = 1
 collision_mask = 4
+script = ExtResource( 2 )
 
 [node name="ground" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )

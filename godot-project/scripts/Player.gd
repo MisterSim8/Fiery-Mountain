@@ -14,6 +14,19 @@ export var coyote_time : int = 15 # le temps que le joueur a quand il tombe d'un
 var jump_buffer_counter : int = 0 # mesurer le délai pour le "jump_buffer" 
 var coyote_counter : int = 0 #mesurer le délai pour le "coyote_time"
 
+var joueurGlisse = false # true si le joueur glisse
+
+const JOUEUR_GLISSE_LERP = 1 # quand le joueur glisse, il décélère moins vite
+const JOUEUR_NE_GLISSE_PAS_LERP = 0.2 # quand le joueur ne glisse, il décélère normalement
+
+const JOUEUR_GLISSE_ACCEL = 80 # il accélère plus vite lorqu'il est sur une surface glissante
+const JOUEUR_NE_GLISSE_PAS_ACCEL = 35 # il accélère normalement
+
+const JOUEUR_GLISSE_VITESSE_MAX  = 1000 # il peut aller plus vite quand il glisse
+const JOUEUR_NE_GLISSE_PAS_VITESSE_MAX = 600 # il a une vitesse normale
+
+const JOUEUR_DISTANCE_GLISSE = 10 # le vecteur en x que le joueur parcours aléatoirement lorsqu'il glisse
+
 func _physics_process(_delta):
 	var movingX = false # true si le joueur est en train de bouger sur l'axe des x
 	if is_on_floor():
@@ -82,3 +95,20 @@ func anim_mort():
 
 func anim_rest():
 	$AnimatedSprite.play("default-rest")
+
+func toggleGlisse():
+	if joueurGlisse == true:
+		joueurGlisse = false
+		vitesse_lerp = JOUEUR_NE_GLISSE_PAS_LERP
+		acceleration = JOUEUR_NE_GLISSE_PAS_ACCEL
+		print("je ne glisse plus")
+	else:
+		joueurGlisse = true
+		vitesse_lerp = JOUEUR_GLISSE_LERP
+		acceleration = JOUEUR_GLISSE_ACCEL
+		print("je glisse")
+		emoteGlisse()
+
+func emoteGlisse():
+	pass
+		

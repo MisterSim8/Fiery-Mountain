@@ -38,9 +38,10 @@ var debutEauX = 0
 #FIN VAR EAU
 
 #VAR JEU
-var tempsEau = 0.0
-var interValEau = 1
-var raiseEau = 10
+var tempsEau = 0.0 # le temps écoulé depuis la dernière élévation de l'eau
+var interValEau = 1 # le délai entre chaque élévation de l'eau
+const raiseEau = 10 # le niveau d'eau qui doit être ajouté à toutes les fois que le timer se termine.
+var joueurPret = false # true si le joueur est prêt et que l'eau peut commencer à monter.
 #FIN VAR JEU
 
 
@@ -60,7 +61,10 @@ func _physics_process(delta):
 	#gestion eau
 	tempsEau += delta
 	if tempsEau >= interValEau:
-		#raiseWater(raiseEau)
+		if joueurPret == true:
+			raiseWater(raiseEau)
+		else:
+			joueurPret = true
 		tempsEau = 0
 
 
@@ -94,13 +98,17 @@ func addPlatform(platformAmount):
 
 		if nouveauPlatformNum == 1:
 			nouveauPlatformInstance = scenePlatformUn.instance()
+			$star.score = 15
 		elif nouveauPlatformNum == 2:
 			nouveauPlatformInstance = scenePlatformDeux.instance()
+			$star.score = 10
 		elif nouveauPlatformNum == 3:
 			nouveauPlatformInstance = scenePlatformTrois.instance()
+			$star.score = 10
 		else:
 			nouveauPlatformInstance = scenePlatformUn.instance()
-	
+			$star.score = 15
+
 		#on détermine la dimension de la nouvelle plateforme
 		nouveauPlatformWidth = nouveauPlatformInstance.get_node("zone/area").get_shape().extents.x
 
@@ -135,6 +143,11 @@ func addPlatform(platformAmount):
 		nouveauPlatformInstance.position.x = lastPlatform.position.x + distanceX
 		nouveauPlatformInstance.position.y = lastPlatform.position.y - platformYGap
 		add_child(nouveauPlatformInstance)
+		
+		#on place l'étoile sur la plateforme
+		print(str(nouveauPlatformWidth/2))
+		$star.position.x = nouveauPlatformInstance.position.x + (nouveauPlatformWidth/2)
+		$star.position.y = nouveauPlatformInstance.position.y
 
 func raiseWater(raiseHeight):
 	for i in range(bodyEau.get_child_count()):
@@ -193,14 +206,17 @@ func resetWater():
 func resetPlayer():
 	$player.position.x = positionInitialeJoueurX
 	$player.position.y = positionInitialeJoueurY
+	joueurPret = false
 
 func die():
 	get_tree().change_scene("res://scenes/menu.tscn")#retour au menu
 
 #CALLBACKS
 func _on_star_body_entered(body):
-	scoreJoueur = scoreJoueur + 1
-	#resetPlayer()
+	scoreJoueur = scoreJoueur + $star.score
+	resetPlayer()
+	addPlatform(2)
+
 func _on_water_body_entered(body):
 	if body.name == "player":
 		pvJoueur = pvJoueur - 1
