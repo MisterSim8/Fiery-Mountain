@@ -1,17 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/tilesets/ground.tres" type="TileSet" id=1]
+[ext_resource path="res://scripts/platform3.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.0
 height = 132.0
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 82, 15.5 )
+extents = Vector2( 82, 43 )
 
 [node name="platform3" type="StaticBody2D" groups=["platform"]]
 z_index = 1
 collision_mask = 4
+script = ExtResource( 2 )
 
 [node name="ground" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -27,13 +29,13 @@ __meta__ = {
 }
 
 [node name="zone" type="Area2D" parent="."]
+collision_mask = 4
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="area" type="CollisionShape2D" parent="zone"]
-position = Vector2( 96, 24.5 )
+position = Vector2( 96, -3 )
 shape = SubResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
+
+[connection signal="body_entered" from="zone" to="." method="_on_zone_body_entered"]

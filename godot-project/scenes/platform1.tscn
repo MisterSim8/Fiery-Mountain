@@ -12,7 +12,7 @@ radius = 12.0
 height = 30.0
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 24, 14 )
+extents = Vector2( 24, 20 )
 
 [node name="platform1" type="KinematicBody2D" groups=["platform"]]
 z_index = 1
@@ -49,8 +49,10 @@ __meta__ = {
 }
 
 [node name="area" type="CollisionShape2D" parent="zone"]
-position = Vector2( 33, 19 )
+position = Vector2( 33, 13 )
 shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[connection signal="body_entered" from="zone" to="." method="_on_zone_body_entered"]

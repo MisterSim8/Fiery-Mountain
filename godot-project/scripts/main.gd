@@ -48,6 +48,19 @@ var joueurPret = false # true si le joueur est prêt et que l'eau peut commencer
 
 func _ready():
 	initWater()
+	$initialPlatform1.score = 0
+	$initialPlatform2.score = 0
+	$initialPlatform3.score = 0
+	$initialPlatform4.score = 0
+	$initialPlatform5.score = 0
+	$initialPlatform5.isLast = true
+	
+	
+	$initialPlatform1.connect("playerScored",self,"onPlatformScored")
+	$initialPlatform2.connect("playerScored",self,"onPlatformScored")
+	$initialPlatform3.connect("playerScored",self,"onPlatformScored")
+	$initialPlatform4.connect("playerScored",self,"onPlatformScored")
+	$initialPlatform5.connect("playerScored",self,"onPlatformScored")
 
 func _process(delta):
 	majUI()
@@ -98,16 +111,14 @@ func addPlatform(platformAmount):
 
 		if nouveauPlatformNum == 1:
 			nouveauPlatformInstance = scenePlatformUn.instance()
-			$star.score = 15
 		elif nouveauPlatformNum == 2:
 			nouveauPlatformInstance = scenePlatformDeux.instance()
-			$star.score = 10
 		elif nouveauPlatformNum == 3:
 			nouveauPlatformInstance = scenePlatformTrois.instance()
-			$star.score = 10
 		else:
 			nouveauPlatformInstance = scenePlatformUn.instance()
-			$star.score = 15
+		
+		nouveauPlatformInstance.connect("playerScored",self,"onPlatformScored")
 
 		#on détermine la dimension de la nouvelle plateforme
 		nouveauPlatformWidth = nouveauPlatformInstance.get_node("zone/area").get_shape().extents.x
@@ -144,10 +155,9 @@ func addPlatform(platformAmount):
 		nouveauPlatformInstance.position.y = lastPlatform.position.y - platformYGap
 		add_child(nouveauPlatformInstance)
 		
-		#on place l'étoile sur la plateforme
-		print(str(nouveauPlatformWidth/2))
-		$star.position.x = nouveauPlatformInstance.position.x + (nouveauPlatformWidth/2)
-		$star.position.y = nouveauPlatformInstance.position.y
+		# si c'est la dernière plateforme ajoutée, on flip le booléen à true
+		if i == platformAmount -1:
+			nouveauPlatformInstance.isLast = true
 
 func raiseWater(raiseHeight):
 	for i in range(bodyEau.get_child_count()):
@@ -212,16 +222,18 @@ func die():
 	get_tree().change_scene("res://scenes/menu.tscn")#retour au menu
 
 #CALLBACKS
-func _on_star_body_entered(body):
-	resetWater()
-	resetPlayer()
-	addPlatform(2)
-
 func _on_water_body_entered(body):
 	if body.name == "player":
 		pvJoueur = pvJoueur - 1
 		resetWater()
 		resetPlayer()
+
+func onPlatformScored(score,isLast):
+	$".".scoreJoueur += score
+	if isLast == true:
+		resetWater()
+		resetPlayer()
+		addPlatform(2)
 ##FIN CALLBACKS
 
 func majUI():
