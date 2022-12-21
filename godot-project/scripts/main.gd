@@ -33,7 +33,7 @@ var depth = null
 var spriteSizeEauX = null
 var numSpriteRequisX = null
 #récupère là ou l'eau doit commencer à se dessiner sur l'axe des x
-var yOffset = 0
+var yOffset = 5
 var debutEauX = 0
 #FIN VAR EAU
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/UI_48x48.png-f27591f68a456aa5e2ac4c92d0c87d63.stex"
+path="res://.import/UI_48x48.png-a5afff9d17793ad1715853e27da68f90.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/hooded_protagonist/UI_48x48.png"
-dest_files=[ "res://.import/UI_48x48.png-f27591f68a456aa5e2ac4c92d0c87d63.stex" ]
+source_file="res://assets/hooded-protagonist/UI_48x48.png"
+dest_files=[ "res://.import/UI_48x48.png-a5afff9d17793ad1715853e27da68f90.stex" ]
 
 [params]
 

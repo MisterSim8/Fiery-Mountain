@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/tilesets/ground.tres" type="TileSet" id=1]
+[ext_resource path="res://scripts/platform1.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 22.0
@@ -13,9 +14,10 @@ height = 30.0
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 24, 14 )
 
-[node name="platform1" type="StaticBody2D" groups=["platform"]]
+[node name="platform1" type="KinematicBody2D" groups=["platform"]]
 z_index = 1
 collision_mask = 4
+script = ExtResource( 2 )
 
 [node name="ground" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -52,6 +54,3 @@ shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[connection signal="body_entered" from="zone" to="." method="_on_zone_body_entered"]
-[connection signal="body_exited" from="zone" to="." method="_on_zone_body_exited"]

@@ -96,19 +96,3 @@ func anim_mort():
 func anim_rest():
 	$AnimatedSprite.play("default-rest")
 
-func toggleGlisse():
-	if joueurGlisse == true:
-		joueurGlisse = false
-		vitesse_lerp = JOUEUR_NE_GLISSE_PAS_LERP
-		acceleration = JOUEUR_NE_GLISSE_PAS_ACCEL
-		print("je ne glisse plus")
-	else:
-		joueurGlisse = true
-		vitesse_lerp = JOUEUR_GLISSE_LERP
-		acceleration = JOUEUR_GLISSE_ACCEL
-		print("je glisse")
-		emoteGlisse()
-
-func emoteGlisse():
-	pass
-		
